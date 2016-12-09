@@ -49,6 +49,15 @@
 			console.log($scope.updateId);
 			$scope.updateId=-1;
 		}
+		//切换任务选中状态
+		$scope.isCheckedAll=false;
+		$scope.$watch('isCheckedAll',function(cur,old){
+			if(cur===old)return;
+			var i=0,list=$scope.todoList;
+			for(;i<list.length;i++){
+				$scope.todoList[i].isCompleted=cur;
+			}
+		})
 	}])
 
 })(angular);
