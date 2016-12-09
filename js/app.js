@@ -58,6 +58,29 @@
 				$scope.todoList[i].isCompleted=cur;
 			}
 		})
+		//清除已完成的任务
+		$scope.clearCompleted=function(){
+			var temp=[];
+			var i=0,list=$scope.todoList;
+			for(;i<list.length;i++){
+				var todo=list[i];
+				if(!todo.isCompleted){
+					temp.push(todo);
+				}
+			}
+			$scope.todoList=temp;
+		}
+		//控制清除按钮的显示和隐藏
+		$scope.isShow=function(){
+			var i=0,list=$scope.todoList;
+			for(;i<list.length;i++){
+				var todo=list[i];
+				if(todo.isCompleted){
+					return true;
+				}
+			}
+			return false;
+		}
 	}])
 
 })(angular);
