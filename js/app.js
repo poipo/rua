@@ -51,6 +51,16 @@
 		}
 		//切换任务选中状态
 		$scope.isCheckedAll=false;
+		//$scope.isAll=function(){
+		//	var i=0,list=$scope.todoList;
+		//	for(;i<list.length;i++){
+		//		if(!$scope.todoList[i].isCompleted){
+		//			$scope.isCheckedAll=false;
+		//			return;
+		//		}
+		//	}
+		//	$scope.isCheckedAll=true;
+		//}
 		$scope.$watch('isCheckedAll',function(cur,old){
 			if(cur===old)return;
 			var i=0,list=$scope.todoList;
@@ -80,6 +90,16 @@
 				}
 			}
 			return false;
+		}
+		//显示未完成的任务数
+		$scope.getCount=function(){
+			var count=0;
+			$scope.todoList.forEach(function(v){
+				if(!v.isCompleted){
+					count++;
+				}
+			})
+			return count;
 		}
 	}])
 
