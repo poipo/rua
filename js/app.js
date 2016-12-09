@@ -10,6 +10,7 @@
 			{id: 2, name: '学习', isCompleted: false},
 			{id: 3, name: '打豆豆', isCompleted: false}
 		];
+		//添加
 		$scope.newTask='';
 		$scope.add=function(){
 			var id,list=$scope.todoList;
@@ -28,6 +29,7 @@
 			})
 			$scope.newTask='';
 		}
+		//删除
 		$scope.remove=function(id){
 			var i= 0,list=$scope.todoList;
 			for(;i<list.length;i++){
@@ -37,6 +39,15 @@
 					return;
 				}
 			}
+		}
+		//改
+		$scope.updateId=-1;
+		$scope.update=function(id){
+			$scope.updateId=id;
+		}
+		$scope.save=function(){
+			console.log($scope.updateId);
+			$scope.updateId=-1;
 		}
 	}])
 
