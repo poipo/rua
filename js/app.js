@@ -28,6 +28,16 @@
 			})
 			$scope.newTask='';
 		}
+		$scope.remove=function(id){
+			var i= 0,list=$scope.todoList;
+			for(;i<list.length;i++){
+				var temp=list[i];
+				if(temp.id===id){
+					$scope.todoList.splice(i,1);
+					return;
+				}
+			}
+		}
 	}])
 
 })(angular);

@@ -28,7 +28,7 @@
                     <div class="view">
                         <input class="toggle" type="checkbox" ng-model="item.isCompleted">
                         <label>{{item.name}}</label>
-                        <button class="destroy"></button>
+                        <button class="destroy" ng-click="remove(item.id)"></button>
                     </div>
                     <input class="edit" value="Create a TodoMVC template">
                 </li>
