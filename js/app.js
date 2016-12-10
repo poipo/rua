@@ -61,13 +61,30 @@
 		//	}
 		//	$scope.isCheckedAll=true;
 		//}
-		$scope.$watch('isCheckedAll',function(cur,old){
-			if(cur===old)return;
-			var i=0,list=$scope.todoList;
-			for(;i<list.length;i++){
-				$scope.todoList[i].isCompleted=cur;
-			}
-		})
+		//$scope.$watch('isCheckedAll',function(cur,old){
+		//	if(cur===old)return;
+		//	var i=0,list=$scope.todoList;
+		//	for(;i<list.length;i++){
+		//		$scope.todoList[i].isCompleted=cur;
+		//	}
+		//})
+        $scope.selectAll=function(){
+            var i=0,list=$scope.todoList;
+            for(;i<list.length;i++){
+                $scope.todoList[i].isCompleted=$scope.isCheckedAll;
+            }
+        }
+        $scope.isAll=function(){
+            var i=0,list=$scope.todoList;
+            for(;i<list.length;i++){
+                var todo=list[i];
+                if(!todo.isCompleted){
+                    $scope.isCheckedAll=false;
+                    return;
+                }
+            }
+            $scope.isCheckedAll=true;
+        }
 		//清除已完成的任务
 		$scope.clearCompleted=function(){
 			var temp=[];
@@ -101,6 +118,7 @@
 			})
 			return count;
 		}
+
 	}])
 
 })(angular);
