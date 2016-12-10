@@ -118,7 +118,17 @@
 			})
 			return count;
 		}
-
+        //显示不同状态的任务
+        $scope.status='';
+        $scope.checked=function(){
+            $scope.status={};
+        }
+        $scope.checkedCompleted=function(){
+            $scope.status={isCompleted:true};
+        }
+        $scope.checkedActive=function(){
+            $scope.status={isCompleted:false};
+        }
 	}])
 
 })(angular);

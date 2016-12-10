@@ -25,7 +25,7 @@
             <ul class="todo-list">
                 <!-- These are here just to show the structure of the list items -->
                 <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
-                <li ng-repeat="item in todoList track by $index" ng-class="{'completed':item.isCompleted,'editing':item.id===updateId}">
+                <li ng-repeat="item in todoList |filter:status track by $index" ng-class="{'completed':item.isCompleted,'editing':item.id===updateId}">
                     <div class="view">
                         <input class="toggle" type="checkbox" ng-model="item.isCompleted" ng-click="isAll()">
                         <label ng-dblclick="update(item.id)">{{item.name}}</label>
@@ -44,13 +44,13 @@
             <!-- Remove this if you don't implement routing -->
             <ul class="filters">
                 <li>
-                    <a class="selected" href="#/">All</a>
+                    <a class="selected" href="#/" ng-click="checked()">All</a>
                 </li>
                 <li>
-                    <a href="#/active">Active</a>
+                    <a href="#/active" ng-click="checkedActive()">Active</a>
                 </li>
                 <li>
-                    <a href="#/completed">Completed</a>
+                    <a href="#/completed" ng-click="checkedCompleted()">Completed</a>
                 </li>
             </ul>
             <!-- Hidden if no completed items are left ↓ -->
