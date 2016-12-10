@@ -3,13 +3,14 @@
 
 	// Your starting point. Enjoy the ride!
 	var app=angular.module("todoApp.todoCtrl",[]);
-	app.controller("toDoController",['$scope','$location',function($scope,$location){
-		$scope.todoList = [
-			{id: 0, name: '吃饭', isCompleted: false},
-			{id: 1, name: '睡觉', isCompleted: true},
-			{id: 2, name: '学习', isCompleted: false},
-			{id: 3, name: '打豆豆', isCompleted: false}
-		];
+	app.controller("toDoController",['$scope','$location','todoSrv',function($scope,$location,todoSrv){
+		//$scope.todoList = [
+		//	{id: 0, name: '吃饭', isCompleted: false},
+		//	{id: 1, name: '睡觉', isCompleted: true},
+		//	{id: 2, name: '学习', isCompleted: false},
+		//	{id: 3, name: '打豆豆', isCompleted: false}
+		//];
+        $scope.todoList=todoSrv.getData();
 		//添加
 		$scope.newTask='';
 		$scope.add=function(){
