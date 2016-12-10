@@ -14,6 +14,45 @@
             this.getData= function () {
                 return todoList;
             }
+            //保存数据
+            this.saveData=function(){
+                storage.setItem('todo',JSON.stringify(todoList));
+            };
+            //添加数据
+            this.addData=function(newTask){
+                var id,list=todoList;
+                if(list.length===0){
+                    id=0;
+                }else{
+                    id=list[list.length-1].id+1;
+                }
+                todoList.push({
+                    id:id,
+                    name:newTask,
+                    isCompleted: false
+                })
+                this.saveData();
+            }
+            //删除数据
+            this.removeData=function(id){
+                var i= 0,list=todoList;
+                for(;i<list.length;i++){
+                    var temp=list[i];
+                    if(temp.id===id){
+                        todoList.splice(i,1);
+                        this.saveData();
+                        return;
+                    }
+                }
+            }
+            //切换任务选中状态
+            this.selectAll=function(isCheckedAll){
+                var i=0,list=todoList;
+                for(;i<list.length;i++){
+                    todoList[i].isCompleted=isCheckedAll;
+                }
+                this.saveData();
+            }
         }]);
 
 })(angular);

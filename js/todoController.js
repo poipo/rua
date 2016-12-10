@@ -14,32 +14,16 @@
 		//添加
 		$scope.newTask='';
 		$scope.add=function(){
-			var id,list=$scope.todoList;
+
 			if(!$scope.newTask){
 				return;
 			}
-			if(list.length===0){
-				id=0;
-			}else{
-				id=list[list.length-1].id+1;
-			}
-			$scope.todoList.push({
-				id:id,
-				name:$scope.newTask,
-				isCompleted: false
-			})
+            todoSrv.addData($scope.newTask);
 			$scope.newTask='';
 		}
 		//删除
 		$scope.remove=function(id){
-			var i= 0,list=$scope.todoList;
-			for(;i<list.length;i++){
-				var temp=list[i];
-				if(temp.id===id){
-					$scope.todoList.splice(i,1);
-					return;
-				}
-			}
+            todoSrv.removeData(id);
 		}
 		//改
 		$scope.updateId=-1;
@@ -47,34 +31,18 @@
 			$scope.updateId=id;
 		}
 		$scope.save=function(){
-			console.log($scope.updateId);
+            todoSrv.saveData();
 			$scope.updateId=-1;
 		}
 		//切换任务选中状态
 		$scope.isCheckedAll=false;
-		//$scope.isAll=function(){
-		//	var i=0,list=$scope.todoList;
-		//	for(;i<list.length;i++){
-		//		if(!$scope.todoList[i].isCompleted){
-		//			$scope.isCheckedAll=false;
-		//			return;
-		//		}
-		//	}
-		//	$scope.isCheckedAll=true;
-		//}
-		//$scope.$watch('isCheckedAll',function(cur,old){
-		//	if(cur===old)return;
-		//	var i=0,list=$scope.todoList;
-		//	for(;i<list.length;i++){
-		//		$scope.todoList[i].isCompleted=cur;
-		//	}
-		//})
         $scope.selectAll=function(){
-            var i=0,list=$scope.todoList;
-            for(;i<list.length;i++){
-                $scope.todoList[i].isCompleted=$scope.isCheckedAll;
-            }
+            todoSrv.selectAll($scope.isCheckedAll);
         }
+        $scope.$watch("todoList",function(cur,old){
+            if(cur===old)return;
+            todoSrv.saveData();
+        },true)
         $scope.isAll=function(){
             var i=0,list=$scope.todoList;
             for(;i<list.length;i++){
