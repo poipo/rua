@@ -53,6 +53,19 @@
                 }
                 this.saveData();
             }
+            //清除已完成的任务
+            this.clearCompleted=function(){
+                var temp=[];
+                var i=0,list=todoList;
+                for(;i<list.length;i++){
+                    var todo=list[i];
+                    if(!todo.isCompleted){
+                        temp.push(todo);
+                    }
+                }
+                todoList=temp;
+                this.saveData();
+            }
         }]);
 
 })(angular);

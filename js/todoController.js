@@ -2,8 +2,14 @@
 	'use strict';
 
 	// Your starting point. Enjoy the ride!
-	var app=angular.module("todoApp.todoCtrl",[]);
-	app.controller("toDoController",['$scope','$location','todoSrv',function($scope,$location,todoSrv){
+	var app=angular.module("todoApp.todoCtrl",['ngRoute']);
+    app.config(['$routeProvider',function($routeProvider){
+        $routeProvider.when('/:status?',{
+            templateUrl:'view.html',
+            controller:'toDoController'
+        });
+    }])
+	app.controller("toDoController",['$scope','$location','todoSrv','$routeParams',function($scope,$location,todoSrv,$routeParams){
 		//$scope.todoList = [
 		//	{id: 0, name: '吃饭', isCompleted: false},
 		//	{id: 1, name: '睡觉', isCompleted: true},
@@ -56,16 +62,9 @@
         }
 		//清除已完成的任务
 		$scope.clearCompleted=function(){
-			var temp=[];
-			var i=0,list=$scope.todoList;
-			for(;i<list.length;i++){
-				var todo=list[i];
-				if(!todo.isCompleted){
-					temp.push(todo);
-				}
-			}
-			$scope.todoList=temp;
-		}
+			todoSrv.clearCompleted();
+			$scope.todoList=todoSrv.getData();
+        }
 		//控制清除按钮的显示和隐藏
 		$scope.isShow=function(){
 			var i=0,list=$scope.todoList;
@@ -88,7 +87,7 @@
 			return count;
 		}
         //显示不同状态的任务
-        $scope.status='';
+        $scope.status={};
         //$scope.checked=function(){
         //    $scope.status={};
         //}
@@ -100,21 +99,33 @@
         //}
 
         //根据url变化显示相应任务
-        $scope.location=$location;
-        $scope.$watch('location.url()',function(cur,old){
-            //if(cur===old)return;
-            switch (cur){
-                case '/active':
-                    $scope.status={isCompleted:false};
-                    break;
-                case '/completed':
-                    $scope.status={isCompleted:true};
-                    break;
-                default :
-                    $scope.status={};
-                    break;
-            }
-        })
+        switch ($routeParams.status){
+            case 'active':
+                $scope.status={isCompleted:false};
+                break;
+            case 'completed':
+                $scope.status={isCompleted:true};
+                break;
+            default :
+                $scope.status={};
+                break;
+        }
+        //$scope.location=$location;
+        //$scope.$watch('location.url()',function(cur,old){
+        //    //if(cur===old)return;
+        //    switch (cur){
+        //        case '/active':
+        //            $scope.status={isCompleted:false};
+        //            break;
+        //        case '/completed':
+        //            $scope.status={isCompleted:true};
+        //            break;
+        //        default :
+        //            $scope.status={};
+        //            break;
+        //    }
+        //})
+
 	}])
 
 })(angular);
