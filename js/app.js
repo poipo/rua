@@ -3,7 +3,7 @@
 
 	// Your starting point. Enjoy the ride!
 	var app=angular.module("toDoApp",[]);
-	app.controller("toDoController",['$scope',function($scope){
+	app.controller("toDoController",['$scope','$location',function($scope,$location){
 		$scope.todoList = [
 			{id: 0, name: '吃饭', isCompleted: false},
 			{id: 1, name: '睡觉', isCompleted: true},
@@ -120,15 +120,32 @@
 		}
         //显示不同状态的任务
         $scope.status='';
-        $scope.checked=function(){
-            $scope.status={};
-        }
-        $scope.checkedCompleted=function(){
-            $scope.status={isCompleted:true};
-        }
-        $scope.checkedActive=function(){
-            $scope.status={isCompleted:false};
-        }
+        //$scope.checked=function(){
+        //    $scope.status={};
+        //}
+        //$scope.checkedCompleted=function(){
+        //    $scope.status={isCompleted:true};
+        //}
+        //$scope.checkedActive=function(){
+        //    $scope.status={isCompleted:false};
+        //}
+        
+        //根据url变化显示相应任务
+        $scope.location=$location;
+        $scope.$watch('location.url()',function(cur,old){
+            //if(cur===old)return;
+            switch (cur){
+                case '/active':
+                    $scope.status={isCompleted:false};
+                    break;
+                case '/completed':
+                    $scope.status={isCompleted:true};
+                    break;
+                default :
+                    $scope.status={};
+                    break;
+            }
+        })
 	}])
 
 })(angular);
