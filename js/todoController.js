@@ -4,7 +4,8 @@
 	// Your starting point. Enjoy the ride!
 	var app=angular.module("todoApp.todoCtrl",['ngRoute']);
     //路由
-    app.config(['$routeProvider',function($routeProvider){
+    app.config(['$routeProvider','$locationProvider',function($routeProvider,$locationProvider){
+        $locationProvider.hashPrefix('');
         $routeProvider.when('/:status?',{
             templateUrl:'view.html',
             controller:'toDoController'
