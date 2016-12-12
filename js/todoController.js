@@ -49,10 +49,10 @@
         $scope.selectAll=function(){
             todoSrv.selectAll($scope.isCheckedAll);
         }
-        $scope.$watch("todoList",function(cur,old){
-            if(cur===old)return;
-            todoSrv.saveData();
-        },true)
+        //$scope.$watch("todoList",function(cur,old){
+        //    if(cur===old)return;
+        //    todoSrv.saveData();
+        //},true)
         $scope.isAll=function(){
             var i=0,list=$scope.todoList;
             for(;i<list.length;i++){
