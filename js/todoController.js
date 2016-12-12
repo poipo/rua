@@ -3,12 +3,14 @@
 
 	// Your starting point. Enjoy the ride!
 	var app=angular.module("todoApp.todoCtrl",['ngRoute']);
+    //路由
     app.config(['$routeProvider',function($routeProvider){
         $routeProvider.when('/:status?',{
             templateUrl:'view.html',
             controller:'toDoController'
         });
     }])
+    //控制器
 	app.controller("toDoController",['$scope','$location','todoSrv','$routeParams',function($scope,$location,todoSrv,$routeParams){
 		//$scope.todoList = [
 		//	{id: 0, name: '吃饭', isCompleted: false},
@@ -16,6 +18,8 @@
 		//	{id: 2, name: '学习', isCompleted: false},
 		//	{id: 3, name: '打豆豆', isCompleted: false}
 		//];
+
+        //获取数据
         $scope.todoList=todoSrv.getData();
 		//添加
 		$scope.newTask='';
